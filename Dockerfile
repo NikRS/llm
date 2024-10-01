@@ -1,22 +1,28 @@
-# Используем базовый образ с Python
+# Базовый образ Python
 FROM python:3.9-slim
 
-# Установим необходимые системные зависимости
+# Обновление пакетов и установка системных зависимостей
 RUN apt-get update && apt-get install -y \
-    git \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем библиотеки
+# Установка pip-зависимостей
+RUN pip install --upgrade pip
+
+# Установка нужных библиотек
 RUN pip install --no-cache-dir transformers torch
 
-# Скачиваем модель заранее, чтобы избежать скачивания при каждом запуске контейнера
-RUN python -c "from transformers import XLMRobertaModel; XLMRobertaModel.from_pretrained('xlm-roberta-large')"
+# Предварительная загрузка модели
+RUN python -c "from transformers import XLMRobertaTokenizer, XLMRobertaModel; XLMRobertaModel.from_pretrained('xlm-roberta-large'); XLMRobertaTokenizer.from_pretrained('xlm-roberta-large')"
 
-# Определим рабочую директорию
+# Рабочая директория
 WORKDIR /app
 
-# Копируем ваш код в контейнер
+# Копирование вашего кода в контейнер
 COPY . /app
 
-# Определим команду запуска (например, скрипт main.py)
+# Команда по умолчанию для запуска
 CMD ["python", "main.py"]
