@@ -1,13 +1,15 @@
 version: '3.8'
 
 services:
-  transformers-app:
-    build: .
-    container_name: transformers_container
-    volumes:
-      - ./:/app  # Mounts the current directory to /app in the container
+  model-api:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Путь к вашему Dockerfile
     ports:
-      - "8080:8080"  # Map port 8080 of the container to port 8080 on the host (adjust as needed)
+      - "5000:5000"  # Порт для доступа к API
     environment:
-      - PYTHONUNBUFFERED=1  # Ensures that Python output is logged in real-time
+      - PYTHONUNBUFFERED=1  # Переменная окружения для правильного вывода логов
+    volumes:
+      - .:/app  # Монтирование локальной папки в контейнер
+    restart: always  # Автоперезапуск в случае падения контейнера
     command: python app.py  # Replace this with the actual script you want to run
