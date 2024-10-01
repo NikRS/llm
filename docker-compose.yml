@@ -12,4 +12,4 @@ services:
     volumes:
       - .:/app  # Монтирование локальной папки в контейнер
     restart: always  # Автоперезапуск в случае падения контейнера
-    command: python app.py  # Replace this with the actual script you want to run
+    # command: python app.py  # Replace this with the actual script you want to run
