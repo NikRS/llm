@@ -10,4 +10,4 @@ services:
       - "8080:8080"  # Map port 8080 of the container to port 8080 on the host (adjust as needed)
     environment:
       - PYTHONUNBUFFERED=1  # Ensures that Python output is logged in real-time
-    # command: python your_script.py  # Replace this with the actual script you want to run
+    command: python app.py  # Replace this with the actual script you want to run

@@ -10,4 +10,5 @@ COPY . /app
 # Install any necessary packages, including transformers
 RUN pip install --upgrade pip \
     && pip install transformers \
-    && pip install torch  # Optional if you're using PyTorch
+    && pip install torch \
+    && pip install flask
