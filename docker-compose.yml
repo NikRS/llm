@@ -1,8 +1,0 @@
-version: '3'
-services:
-  xlm-roberta:
-    image: huggingface/transformers-pytorch-gpu
-    container_name: xlm-roberta-container
-    volumes:
-      - ./app:/app
-    command: python /app/main.py
